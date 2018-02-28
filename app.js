@@ -10,7 +10,17 @@ window.addEventListener('load',async e => {
 	//adding a change event for the source selector
 	select.addEventListener('change', e => {
 		updateNews(e.target.value);
-	})
+	});
+	//adding the service worker
+	if('serviceWorker' in navigator){
+		try{
+			navigator.serviceWorker.register('sw.js');
+			console.log("Servie worker is registered!");
+		}
+		catch(error){
+			console.log("Service worker registration failed!");
+		}
+	}
 })
 async function updateNews(source = defaultSource){
 	//update using the api
