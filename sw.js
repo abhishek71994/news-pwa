@@ -4,9 +4,16 @@ const staticAssets = [
 	'./app.js'
 ];
 
-self.addEventListener('install',event => {
-	console.log("installed");
+self.addEventListener('install',async event => {
+	const cache = await caches.open("news-static-content");
+	cache.addAll(staticAssets);
 })
 self.addEventListener('fetch',event => {
-	console.log("Fetching happening..");
+	const req = event.request;
+	event.respondWith(cacheFirst(req));
 })
+
+async function cacheFirst(req){
+	const cachedResponse = await caches.match(req);
+	return cachedResponse || fetch(req);
+}
