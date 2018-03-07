@@ -1,7 +1,8 @@
 const staticAssets = [
 	'./',
 	'./style.css',
-	'./app.js'
+	'./app.js'.
+	'./materialize.min.css'
 ];
 
 self.addEventListener('install',async event => {

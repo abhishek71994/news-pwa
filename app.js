@@ -14,11 +14,11 @@ window.addEventListener('load',async e => {
 	//adding the service worker
 	if('serviceWorker' in navigator){
 		try{
-			navigator.serviceWorker.register('sw.js');
+			await navigator.serviceWorker.register('sw.js');
 			console.log("Servie worker is registered!");
 		}
 		catch(error){
-			console.log("Service worker registration failed!");
+			console.log("Service worker registration failed!",error);
 		}
 	}
 })
@@ -36,12 +36,17 @@ async function createSource(){
 }
 function createArticle(article){
 	return `
-		<div class="article">
-			<a href=${article.url}>
-				<h1>${article.title}</h1>
-				<img src="${article.urlToImage}">
-				<p>${article.description}</p>
-			</a>
-		</div>
+				<div class="col s12 m6">
+					<div class="card">
+						<div class="card-image">
+							<img src="${article.urlToImage}">
+							<span class="card-title">${article.title}</span>
+						</div>
+						<div class="card-content">
+							<p>${article.description}</p>
+						</div>
+						<div class="card-action"><a href=${article.url} target="_blank">More..</a></div>
+					</div>
+				</div>
 	`
 }
